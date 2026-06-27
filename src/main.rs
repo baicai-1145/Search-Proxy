@@ -30,7 +30,9 @@ enum Command {
     Wrap {
         /// Provider: firecrawl | tavily
         provider: String,
-        /// Args to pass through to the real CLI
+        /// Args passed through verbatim to the real CLI (including flags like
+        /// `--limit`); `trailing_var_arg` stops clap from parsing them.
+        #[arg(trailing_var_arg = true, allow_hyphen_values = true)]
         args: Vec<String>,
     },
     /// Manage API keys in the pool

@@ -36,7 +36,7 @@ jobs:
             target: aarch64-apple-darwin
             artifact: search-proxy-mac-arm64
             archive: tar.gz
-          - os: macos-13
+          - os: macos-14
             target: x86_64-apple-darwin
             artifact: search-proxy-mac-x64
             archive: tar.gz

@@ -21,7 +21,7 @@ if (!plat) {
   process.exit(1);
 }
 
-const repo = process.env.SEARCH_PROXY_REPO || 'baicai1145/search-proxy';
+const repo = process.env.SEARCH_PROXY_REPO || 'baicai-1145/Search-Proxy';
 const version = process.env.SEARCH_PROXY_VERSION || 'latest';
 const vendorDir = path.join(__dirname, 'vendor');
 fs.mkdirSync(vendorDir, { recursive: true });

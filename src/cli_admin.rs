@@ -3,7 +3,6 @@ use crate::keypool::KeyPool;
 use crate::provider::Provider;
 use anyhow::{anyhow, bail, Context, Result};
 use clap::Subcommand;
-use std::os::unix::fs::PermissionsExt;
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
@@ -200,7 +199,19 @@ fn write_shim(path: &Path, self_exe: &Path, provider: &str) -> Result<()> {
         provider
     );
     std::fs::write(path, content).with_context(|| format!("write shim {}", path.display()))?;
+    make_executable(path)?;
+    Ok(())
+}
+
+#[cfg(unix)]
+fn make_executable(path: &Path) -> Result<()> {
+    use std::os::unix::fs::PermissionsExt;
     std::fs::set_permissions(path, std::fs::Permissions::from_mode(0o755))?;
+    Ok(())
+}
+
+#[cfg(windows)]
+fn make_executable(_path: &Path) -> Result<()> {
     Ok(())
 }
 

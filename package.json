@@ -1,0 +1,24 @@
+{
+  "name": "search-proxy",
+  "version": "0.1.0",
+  "description": "Multi-account key-rotation proxy for Firecrawl and Tavily CLI (mode A wrapper + mode B reverse proxy + WebUI). Postinstall downloads the prebuilt Rust binary for your platform.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/baicai1145/search-proxy"
+  },
+  "bin": {
+    "search-proxy": "bin.js"
+  },
+  "scripts": {
+    "postinstall": "node install.js"
+  },
+  "files": [
+    "bin.js",
+    "install.js",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  }
+}

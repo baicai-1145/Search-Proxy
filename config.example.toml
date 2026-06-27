@@ -1,0 +1,20 @@
+# search-proxy configuration. Copy to search-proxy.toml (CWD) or
+# ~/.config/search-proxy/config.toml and edit before first run.
+
+[server]
+listen = "127.0.0.1:8787"
+# Token used by the mode-A wrapper to call /lease and /report.
+# Use a long random secret (e.g. `openssl rand -hex 32`).
+control_token = "change-me-to-a-long-random-secret"
+
+[database]
+# SQLite file path. Relative paths resolve against the server CWD.
+path = "data/search-proxy.db"
+
+[rotation]
+# Cooldown (seconds) when a key hits 429 and no Retry-After is present.
+rate_limit_cooldown_secs = 60
+# Cooldown (seconds) when a key hits 402 / quota exhausted (probed until reset).
+quota_cooldown_secs = 21600
+# Interval (seconds) for the background active-usage refresher.
+usage_refresh_secs = 600

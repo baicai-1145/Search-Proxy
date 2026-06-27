@@ -1,0 +1,30 @@
+[Unit]
+Description=search-proxy (Firecrawl/Tavily key-rotation proxy)
+Documentation=https://github.com/baicai1145/search-proxy
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=search-proxy
+Group=search-proxy
+# Config is discovered from $HOME/.config/search-proxy/config.toml or
+# ./search-proxy.toml in the working directory. See deploy/search-proxy.toml.example.
+Environment=HOME=/etc/search-proxy
+WorkingDirectory=/etc/search-proxy
+ExecStart=/usr/local/bin/search-proxy serve
+Restart=on-failure
+RestartSec=5
+
+# Hardening
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ProtectKernelTunables=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+ReadWritePaths=/var/lib/search-proxy
+
+[Install]
+WantedBy=multi-user.target

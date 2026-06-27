@@ -1,0 +1,24 @@
+# search-proxy server config (place at /etc/search-proxy/.config/search-proxy/config.toml
+# or /etc/search-proxy/search-proxy.toml, matching the systemd unit's HOME/WorkingDirectory).
+# Generate a strong random secret for control_token, e.g.:
+#   openssl rand -hex 32
+
+[server]
+listen = "127.0.0.1:8788"
+control_token = "REPLACE_WITH_LONG_RANDOM_SECRET"
+
+[database]
+# SQLite lives under a writable path declared in the systemd unit (ReadWritePaths).
+path = "/var/lib/search-proxy/search-proxy.db"
+
+[rotation]
+# Cool down keys after rate-limit (429) / quota (402) signals before re-leasing.
+rate_limit_cooldown_secs = 60
+quota_cooldown_secs = 21600
+# Background active-usage refresh interval (Firecrawl credit-usage polling).
+usage_refresh_secs = 3600
+
+[admin]
+# WebUI (/ui) admin password. Pick a strong one.
+password = "REPLACE_WITH_ADMIN_PASSWORD"
+session_ttl_secs = 86400

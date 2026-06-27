@@ -1,0 +1,19 @@
+# Caddy reverse proxy for search-proxy.
+# Place in /etc/caddy/Caddyfile (or a Caddyfile.d include) and reload Caddy.
+# Caddy obtains and renews TLS automatically for the given domain.
+
+search-proxy.example.com {
+	encode zstd gzip
+
+	# Optional: restrict /ui and /api/v1 to trusted networks / IP allowlists.
+	# @admin path /ui* /api/v1/*
+	# handle @admin {
+	# 	@trusted client_ip 10.0.0.0/8 192.168.0.0/16
+	# 	abort @trusted
+	# }
+
+	reverse_proxy 127.0.0.1:8788 {
+		# Streaming-friendly defaults; keep timeouts loose for long crawl jobs.
+		flush_interval -1
+	}
+}
